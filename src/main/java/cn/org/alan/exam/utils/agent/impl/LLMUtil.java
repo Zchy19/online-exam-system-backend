@@ -16,17 +16,7 @@ import dev.langchain4j.data.message.UserMessage;
 //import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 //import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-//import dev.langchain4j.model.openai.OpenAiEmbeddingModel;
-//import dev.langchain4j.rag.content.retriever.ContentRetriever;
-//import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
-//import dev.langchain4j.store.embedding.milvus.MilvusEmbeddingStore;
-//import io.milvus.client.MilvusServiceClient;
-//import io.milvus.common.clientenum.ConsistencyLevelEnum;
-//import io.milvus.param.ConnectParam;
-//import io.milvus.param.IndexType;
-//import io.milvus.param.MetricType;
-import org.jcp.xml.dsig.internal.dom.Utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -167,7 +157,7 @@ public class LLMUtil implements AIChat {
     public Path toPath(String relativePath) {
         try {
             // 使用类加载器获取资源路径，并将其转换为 URI 形式的 Path
-            URL fileUrl = Utils.class.getClassLoader().getResource(relativePath);
+            URL fileUrl = LLMUtil.class.getClassLoader().getResource(relativePath);
             return Paths.get(fileUrl.toURI());
         } catch (URISyntaxException e) {
             // 如果发生 URI 格式异常，则抛出运行时异常
