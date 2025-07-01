@@ -15,12 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-/**
- * 选项实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("选项实体类")
 @TableName("t_option")
@@ -41,9 +36,7 @@ public class Option implements Serializable {
     @Max(value = 1,message = "选项是否正确(isRight)只能是：0错误1正确")
     private Integer isRight;
 
-    /**
-     * 0错误 1正确
-     */
+    
     @ApiModelProperty("图片地址")
     private String image;
 

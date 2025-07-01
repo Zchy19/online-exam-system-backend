@@ -6,11 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/4 14:29
- */
+
 @Data
 public class ReplyVo {
     private Integer id;

@@ -26,12 +26,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
-/**
- * 证书服务实现类
- *
- * @author Jinxin
- * @since 2024-03-21
- */
+
 @Service
 public class CertificateServiceImpl extends ServiceImpl<CertificateMapper, Certificate> implements ICertificateService {
 
@@ -44,7 +39,7 @@ public class CertificateServiceImpl extends ServiceImpl<CertificateMapper, Certi
     @Transactional
     public Result<String> addCertificate(CertificateForm certificateForm) {
         Certificate certificate = certificateConverter.fromToEntity(certificateForm);
-        // 自动生成时间
+        
         int insertRows = certificateMapper.insert(certificate);
         if (insertRows > 0) {
             return Result.success("添加证书成功");
@@ -65,7 +60,7 @@ public class CertificateServiceImpl extends ServiceImpl<CertificateMapper, Certi
     @Transactional
     public Result<String> updateCertificate(CertificateForm certificateForm) {
         Certificate certificate = certificateConverter.fromToEntity(certificateForm);
-        // 根据证书ID更新证书
+        
         Integer affectedRows = certificateMapper.updateById(certificate);
         if (affectedRows > 0) {
             return Result.success("修改证书成功");

@@ -1,31 +1,26 @@
 package cn.org.alan.exam.utils.agent;
 
-/**
- * ai相关的提示词常量
- * @author 赵浩森
- * @since 2025/4/15 21:17
- * @version 1.0
- */
+
 public class Constants {
 
-    // 上下文最大token
+    
     public static final Integer maxToken = 4096;
-    // 回答相似性（0 表示确定性，1 表示高随机性）
+    
     public static final Double temperature = 0.8;
-    // 知识库文件夹路径
+    
     public static final String knowledgeBasePath = "Q:\\GitBench\\online-exam-system-backend\\knowledge-base";
-    // 知识库最大切片大小
+    
     public static final Integer maxSegmentSizeInChars = 300;
-    // 相邻块之间最大重叠字符数
+    
     public static final Integer maxOverlapSizeChars = 0;
-    // 保留的查询到的知识库数据条数
+    
     public static final Integer maxResults = 2;
-    // 知识库匹配最低相似度
+    
     public static final Double minScore = 0.5;
-    // 最大模型记忆条数
+    
     public static final Integer withMaxMessages = 0;
 
-    // 系统提示词
+    
     public static final String systemMessage = "# 角色：考试主观题评分官  \n" +
             "精准评估学生对考试内容涉及知识概念的理解深度与表述准确性  \n" +
             "\n" +

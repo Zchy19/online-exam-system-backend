@@ -8,12 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 用户证书关联实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("用户证书关联实体类")
 @TableName("t_certificate_user")
@@ -38,9 +33,7 @@ public class CertificateUser implements Serializable {
     @ApiModelProperty("证书ID")
     private Integer certificateId;
 
-    /**
-     * YYYY-MM-DD hh:mm:ss
-     */
+    
     @ApiModelProperty("获奖时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

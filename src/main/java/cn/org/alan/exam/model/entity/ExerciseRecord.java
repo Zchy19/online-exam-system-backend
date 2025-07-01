@@ -7,12 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 刷题记录实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("刷题记录实体类")
 @TableName("t_exercise_record")
@@ -40,9 +35,7 @@ public class ExerciseRecord implements Serializable {
     @ApiModelProperty("题目类型")
     private Integer questionType;
 
-    /**
-     * 用于客观题,多选题id使用","分隔
-     */
+    
     @ApiModelProperty("客观题答案集合")
     private String options;
 

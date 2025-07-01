@@ -10,12 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 公告班级关联实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("公告班级关联实体类")
 @TableName("t_notice_grade")

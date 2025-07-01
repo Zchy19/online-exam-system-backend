@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/16 22:20
- */
+
 @RestController
 @RequestMapping("/api/like")
 @Api(tags = "点赞相关api")

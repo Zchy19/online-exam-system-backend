@@ -9,11 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @Author Alan
- * @Version
- * @Date 2024/3/28 2:03 PM
- */
+
 @Component
 @Mapper(componentModel="spring")
 public interface GradeConverter {

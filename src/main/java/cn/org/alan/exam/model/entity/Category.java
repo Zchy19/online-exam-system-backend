@@ -12,12 +12,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 分类实体类
- *
- * @author Moxuec
- * @since 2025-04-09
- */
+
 @Data
 @TableName("t_category")
 @ApiModel(value = "分类实体", description = "题库分类")

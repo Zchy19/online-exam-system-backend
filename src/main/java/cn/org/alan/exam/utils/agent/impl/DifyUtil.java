@@ -13,12 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-/**
- * Dify实现AIChat
- * @author 赵浩森
- * @since 2025/4/17 23:39
- * @version 1.0
- */
+
 @Service
 @ConditionalOnProperty(name = "online-exam.chat-platform.type", havingValue = "dify")
 public class DifyUtil implements AIChat {
@@ -33,23 +28,23 @@ public class DifyUtil implements AIChat {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(baseUrl);
 
-            // 设置请求头
+            
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("Authorization", "Bearer " + apiKey);
 
-            // 构建请求体
+            
             JSONObject requestBody = new JSONObject();
             requestBody.put("query", msg);
             requestBody.put("response_mode", "blocking");
-            requestBody.put("user", "user"); // 用户标识
+            requestBody.put("user", "user"); 
 
-            // 根据文档添加 inputs 字段
+            
             JSONObject inputs = new JSONObject();
-            inputs.put("text", "Your input text"); // 按实际需求调整内容
+            inputs.put("text", "Your input text"); 
             requestBody.put("inputs", inputs);
 
-            // 调试输出请求体
-//            System.out.println("Request Body: " + requestBody);
+            
+
 
             StringEntity entity = new StringEntity(requestBody.toString());
             httpPost.setEntity(entity);

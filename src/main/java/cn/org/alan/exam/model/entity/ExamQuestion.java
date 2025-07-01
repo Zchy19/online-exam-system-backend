@@ -7,13 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 考试试题实体类
- *
- * @Author Alan
- * @Version
- * @Date 2024/4/7 3:42 PM
- */
+
 @Data
 @ApiModel("考试试题实体类")
 @TableName("t_exam_question")

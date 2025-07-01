@@ -9,13 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 证书实体类
- *
- * @ Author Alan
- * @ Version 1.0
- * @ Date 2024/4/25 14:08
- */
+
 @Data
 @ApiModel("证书实体类")
 @TableName("t_certificate")

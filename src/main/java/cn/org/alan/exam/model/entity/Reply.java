@@ -9,13 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 回复实体类
- *
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/4 13:16
- */
+
 @Data
 @TableName("t_reply")
 @ApiModel("回复实体类")

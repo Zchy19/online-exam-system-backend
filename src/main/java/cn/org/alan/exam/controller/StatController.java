@@ -17,13 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-/**
- * 统计管理
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2024/3/25 11:22 AM
- */
+
 @Api(tags = "统计数据相关接口")
 @RestController
 @RequestMapping("/api/stat")
@@ -32,11 +26,7 @@ public class StatController {
     @Resource
     private IStatService statService;
 
-    /**
-     * 各班级人数统计
-     *
-     * @return
-     */
+    
     @ApiOperation("各班级人数统计")
     @GetMapping("/student")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -44,11 +34,7 @@ public class StatController {
         return statService.getStudentGradeCount();
     }
 
-    /**
-     * 各班试卷统计
-     *
-     * @return
-     */
+    
     @ApiOperation("各班试卷统计")
     @GetMapping("/exam")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -56,11 +42,7 @@ public class StatController {
         return statService.getExamGradeCount();
     }
 
-    /**
-     * 统计所有班级、试卷、试题数量
-     *
-     * @return 统计结果
-     */
+    
     @ApiOperation("统计所有班级、试卷、试题数量")
     @GetMapping("/allCounts")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -68,11 +50,7 @@ public class StatController {
         return statService.getAllCount();
     }
 
-    /**
-     * 获取用户登录时间统计
-     *
-     * @return
-     */
+    
     @ApiOperation("获取用户登录时间统计")
     @GetMapping("/daily")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")

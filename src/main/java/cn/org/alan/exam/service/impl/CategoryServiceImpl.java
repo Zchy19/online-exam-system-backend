@@ -15,12 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 分类服务实现类
- *
- * @author Moxuec
- * @since 2025-04-09
- */
+
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
 
@@ -40,7 +35,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public Result<String> deleteCategory(Integer id) {
-        // 检查是否有子分类
+        
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Category::getParentId, id);
         long count = count(wrapper);
@@ -48,8 +43,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             return Result.failed("该分类下有子分类，不能删除");
         }
         
-        // 检查是否有题库使用该分类
-        // 这里需要添加检查题库是否使用该分类的逻辑
+        
+        
         
         removeById(id);
         return Result.success("删除分类成功");
@@ -57,10 +52,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public Result<List<CategoryVO>> getCategoryTree() {
-        // 获取所有分类
+        
         List<Category> allCategories = list();
         
-        // 构建分类树
+        
         List<CategoryVO> result = buildCategoryTree(allCategories, 0);
         
         return Result.success("获取分类树成功", result);
@@ -90,13 +85,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return Result.success("获取子分类成功", result);
     }
     
-    /**
-     * 构建分类树
-     *
-     * @param categories 所有分类
-     * @param parentId 父ID
-     * @return 分类树
-     */
+    
     private List<CategoryVO> buildCategoryTree(List<Category> categories, Integer parentId) {
         List<CategoryVO> result = new ArrayList<>();
         
@@ -111,12 +100,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return result;
     }
     
-    /**
-     * 将实体转换为VO
-     *
-     * @param category 分类实体
-     * @return 分类VO
-     */
+    
     private CategoryVO convertToVO(Category category) {
         CategoryVO vo = new CategoryVO();
         BeanUtils.copyProperties(category, vo);

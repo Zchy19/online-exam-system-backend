@@ -17,16 +17,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 说明：
- * Swagger配置
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/3/18 7:30 PM
- */
+
 @Configuration
-// 开启Swagger
+
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
@@ -40,10 +33,7 @@ public class SwaggerConfig {
                 .build();
     }
 
-    /**
-     * 配置文档信息
-     * @return
-     */
+    
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("在线考试系统接口文档")

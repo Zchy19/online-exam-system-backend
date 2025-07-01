@@ -9,13 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-/**
- * SpringBoot启动类
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/3/25 11:20 AM
- */
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableAsync
 @EnableScheduling

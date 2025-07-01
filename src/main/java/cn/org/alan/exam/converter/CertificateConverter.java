@@ -7,11 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.stereotype.Component;
 
-/**
- * @ Author JinXi
- * @ Version 1.0
- * @ Date 2024/5/11 14:40
- */
+
 @Component
 @Mapper(componentModel="spring")
 public interface CertificateConverter {

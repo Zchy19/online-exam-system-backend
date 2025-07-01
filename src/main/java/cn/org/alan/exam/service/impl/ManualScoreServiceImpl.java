@@ -24,12 +24,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-/**
- * 答卷管理服务实现类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Service
 public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, ManualScore> implements IManualScoreService {
 
@@ -46,13 +41,7 @@ public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, Manua
     @Resource
     private CertificateUserMapper certificateUserMapper;
 
-    /**
-     * 试卷查询信息
-     *
-     * @param userId
-     * @param examId
-     * @return
-     */
+    
     @Override
     public Result<List<UserAnswerDetailVO>> getDetail(Integer userId, Integer examId) {
         List<UserAnswerDetailVO> list = examQuAnswerMapper.selectUserAnswer(userId, examId);
@@ -66,7 +55,7 @@ public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, Manua
         AtomicInteger manualTotalScore = new AtomicInteger();
         correctAnswerFroms.forEach(correctAnswerFrom -> {
 
-            // 获取用户作答信息id
+            
             LambdaQueryWrapper<ExamQuAnswer> wrapper = new LambdaQueryWrapper<ExamQuAnswer>()
                     .select(ExamQuAnswer::getId)
                     .eq(ExamQuAnswer::getExamId, correctAnswerFrom.getExamId())
@@ -81,7 +70,7 @@ public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, Manua
         });
         manualScoreMapper.insertList(list);
 
-        // 把用户考试记录修改为已批改，并把简答题分数添加进去
+        
         CorrectAnswerFrom correctAnswerFrom = correctAnswerFroms.get(0);
         LambdaUpdateWrapper<UserExamsScore> userExamsScoreLambdaUpdateWrapper = new LambdaUpdateWrapper<UserExamsScore>()
                 .eq(UserExamsScore::getExamId, correctAnswerFrom.getExamId())
@@ -90,23 +79,23 @@ public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, Manua
                 .setSql("user_score = user_score + " + manualTotalScore.get());
         userExamsScoreMapper.update(userExamsScoreLambdaUpdateWrapper);
 
-        // 根据该考试是否有证书来给用户颁发对应证书
-        // 判断该考试是否有证书
+        
+        
         LambdaQueryWrapper<Exam> examWrapper = new LambdaQueryWrapper<Exam>()
                 .select(Exam::getId, Exam::getCertificateId, Exam::getPassedScore)
                 .eq(Exam::getId, correctAnswerFrom.getExamId());
         Exam exam = examMapper.selectOne(examWrapper);
-        // 不必对exam做非空验证，这里一定不为null
+        
         if (exam.getCertificateId() != null && exam.getCertificateId() > 0) {
-            // 有证书 获取用户得分
+            
             LambdaQueryWrapper<UserExamsScore> examsScoreWrapper = new LambdaQueryWrapper<UserExamsScore>()
                     .select(UserExamsScore::getId, UserExamsScore::getUserScore)
                     .eq(UserExamsScore::getExamId, correctAnswerFrom.getExamId())
                     .eq(UserExamsScore::getUserId, correctAnswerFrom.getUserId());
             UserExamsScore userExamsScore = userExamsScoreMapper.selectOne(examsScoreWrapper);
-            // 不必对userExamsScore做非空验证，这里一定不为null
+            
             if (userExamsScore.getUserScore() >= exam.getPassedScore()) {
-                // 分数合格，判罚证书
+                
                 CertificateUser certificateUser = new CertificateUser();
                 certificateUser.setUserId(correctAnswerFrom.getUserId());
                 certificateUser.setExamId(correctAnswerFrom.getExamId());
@@ -123,18 +112,18 @@ public class ManualScoreServiceImpl extends ServiceImpl<ManualScoreMapper, Manua
     public Result<IPage<AnswerExamVO>> examPage(Integer pageNum, Integer pageSize, String examName) {
 
         Page<AnswerExamVO> page = new Page<>(pageNum, pageSize);
-        // 获取自己创建的考试
+        
         List<AnswerExamVO> list = examMapper.selectMarkedList(page, SecurityUtil.getUserId(), SecurityUtil.getRole(), examName).getRecords();
 
-        // 获取相关信息
+        
         list.forEach(answerExamVO -> {
-            // 需要参加考试人数
+            
             answerExamVO.setClassSize(examGradeMapper.selectClassSize(answerExamVO.getExamId()));
-            // 实际参加考试人数
+            
             LambdaQueryWrapper<UserExamsScore> numberWrapper = new LambdaQueryWrapper<UserExamsScore>()
                     .eq(UserExamsScore::getExamId, answerExamVO.getExamId());
             answerExamVO.setNumberOfApplicants(userExamsScoreMapper.selectCount(numberWrapper).intValue());
-            // 已阅人数
+            
             LambdaQueryWrapper<UserExamsScore> correctedWrapper = new LambdaQueryWrapper<UserExamsScore>()
                     .eq(UserExamsScore::getWhetherMark, 1)
                     .eq(UserExamsScore::getExamId, answerExamVO.getExamId());

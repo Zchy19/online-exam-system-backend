@@ -16,23 +16,12 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import javax.validation.ConstraintViolationException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-/**
- * 全局异常拦截器
- *
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/3/29 16:10
- */
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * 处理自定义服务异常拦截处理
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(ServiceRuntimeException.class)
     public Result<String> handleException(ServiceRuntimeException e) {
         String message = e.getMessage();
@@ -40,12 +29,7 @@ public class GlobalExceptionHandler {
         return Result.failed(message);
     }
 
-    /**
-     * 处理参数校验异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e.getClass());
@@ -53,48 +37,28 @@ public class GlobalExceptionHandler {
         return Result.failed(message);
     }
 
-    /**
-     * 处理唯一约束异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public Result<String> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
         log.error(e.getMessage(), e.getClass());
         return Result.failed("重复");
     }
 
-    /**
-     * 处理请求参数无法解析异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error(e.getMessage(), e.getClass());
         return Result.failed("请求参数无法解析");
     }
 
-    /**
-     * 处理请求参数缺失异常
-     *
-     * @param e
-     * @return
-     */
+    
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public Result<String> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
         log.error(e.getMessage(), e.getClass());
         return Result.failed(e.getParameterName() + "为必填项");
     }
 
-    /**
-     * 处理主键冲突异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(DuplicateKeyException.class)
     public Result<String> handleDuplicateKeyException(DuplicateKeyException e) {
         String name = e.getMessage().split(":")[2].split(" ")[3];
@@ -102,12 +66,7 @@ public class GlobalExceptionHandler {
         return Result.failed("主键冲突" + name + "已存在");
     }
 
-    /**
-     * 处理无权限访问异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(AccessDeniedException.class)
     public Result<String> handleAccessDeniedException(AccessDeniedException e) {
         log.error(e.getMessage(), e.getClass());
@@ -115,24 +74,14 @@ public class GlobalExceptionHandler {
     }
 
 
-    /**
-     * 处理文件太大异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public Result<String> handlerMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
         log.error(e.getMessage(), e.getClass());
         return Result.failed("文件太大，最大上传5MB");
     }
 
-    /**
-     * 处理文件获取不到异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(MissingServletRequestPartException.class)
     public Result<String> handlerMissingServletRequestPartException(MissingServletRequestPartException e) {
         log.error(e.getMessage(), e.getClass());
@@ -140,12 +89,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    /**
-     * 处理约束违反异常
-     *
-     * @param e 异常
-     * @return 响应
-     */
+    
     @ExceptionHandler(ConstraintViolationException.class)
     public Result<String> handleConstraintViolationException(ConstraintViolationException e) {
         log.error(e.getMessage(), e.getClass());

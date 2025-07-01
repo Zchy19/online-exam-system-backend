@@ -6,11 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
-/**
- * @Author Alan
- * @Version
- * @Date 2024/5/6 10:54 AM
- */
+
 @Component
 @Mapper(componentModel = "spring")
 public interface ExamQuAnswerConverter {

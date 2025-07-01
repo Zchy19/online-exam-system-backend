@@ -8,12 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 用户实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("用户实体类")
 @TableName("t_user")
@@ -45,16 +40,12 @@ public class User implements Serializable {
     @ApiModelProperty("加入到班级ID")
     private Integer gradeId;
 
-    /**
-     * YYYY-MM-DD hh:mm:ss
-     */
+    
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    /**
-     * 1正常0禁用
-     */
+    
     @ApiModelProperty("状态")
     private Integer status;
 

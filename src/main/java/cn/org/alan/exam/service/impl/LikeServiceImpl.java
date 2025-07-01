@@ -14,11 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/16 22:25
- */
+
 @Service
 public class LikeServiceImpl extends ServiceImpl<LikeMapper, Like> implements ILikeService {
 
@@ -30,12 +26,12 @@ public class LikeServiceImpl extends ServiceImpl<LikeMapper, Like> implements IL
         Like like = likeConverter.formToEntity(likeForm);
         Like dataLike = queryLike(likeForm);
         if (dataLike == null) {
-            // 新增
+            
             like.setUserId(SecurityUtil.getUserId());
             int inserted = baseMapper.insert(like);
             return inserted > 0 ? Result.success("点赞成功") : Result.failed("点赞失败");
         }
-        // 删除
+        
         int deleted = deleteLike(dataLike.getId());
         return deleted > 0 ? Result.success("取消成功") : Result.failed("取消失败");
     }

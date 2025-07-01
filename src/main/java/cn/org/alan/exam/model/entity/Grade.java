@@ -7,12 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 班级实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("班级实体类")
 @TableName("t_grade")

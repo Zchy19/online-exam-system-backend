@@ -9,11 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.stereotype.Component;
 
-/**
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/5/6 10:15
- */
+
 @Component
 @Mapper(componentModel="spring")
 public interface ExerciseConverter {

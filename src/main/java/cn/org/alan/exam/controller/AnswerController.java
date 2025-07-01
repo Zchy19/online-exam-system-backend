@@ -17,13 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * 答卷管理
- *
- * @Author WeiJin
- * @Version
- * @Date 2024/3/25 11:20 AM
- */
+
 @Api(tags = "答卷管理接口")
 @RestController
 @RequestMapping("/api/answers")
@@ -32,11 +26,7 @@ public class AnswerController {
     @Resource
     private IManualScoreService manualScoreService;
 
-    /**
-     * 试卷查询信息
-     *
-     * @return
-     */
+    
     @ApiOperation("试卷查询信息")
     @GetMapping("/detail")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -45,11 +35,7 @@ public class AnswerController {
         return manualScoreService.getDetail(userId, examId);
     }
 
-    /**
-     * 批改试卷
-     *
-     * @return
-     */
+    
     @ApiOperation("批改试卷")
     @PutMapping("/correct")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -57,11 +43,7 @@ public class AnswerController {
         return manualScoreService.correct(correctAnswerFroms);
     }
 
-    /**
-     * 分页查找待阅卷考试
-     *
-     * @return
-     */
+    
     @ApiOperation("分页查找待阅卷考试")
     @GetMapping("/exam/page")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -71,14 +53,7 @@ public class AnswerController {
         return manualScoreService.examPage(pageNum, pageSize, examName);
     }
 
-    /**
-     * 查询待批阅的用户
-     *
-     * @param pageNum  页码
-     * @param pageSize 每页大小
-     * @param examId   考试ID
-     * @return
-     */
+    
     @ApiOperation("查询待批阅的用户")
     @GetMapping("/exam/stu")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")

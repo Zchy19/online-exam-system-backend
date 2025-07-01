@@ -3,8 +3,8 @@ package cn.org.alan.exam.utils;
 import cn.org.alan.exam.common.result.Result;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-// import jakarta.annotation.Resource;
-// import jakarta.servlet.http.HttpServletResponse;
+
+
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-/**
- * 响应体封装工具类
- *
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/3/25 18:42
- */
+
 @Component
 public class ResponseUtil {
 

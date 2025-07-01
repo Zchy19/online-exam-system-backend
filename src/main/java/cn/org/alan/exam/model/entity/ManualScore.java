@@ -8,11 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("人工评分表")
 @TableName("t_manual_score")

@@ -23,12 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * 考试管理
- *
- * @author Alan
- * @since 2024-03-21
- */
+
 @Api(tags = "考试管理相关接口")
 @RestController
 @RequestMapping("/api/exams")
@@ -37,12 +32,7 @@ public class ExamController {
     @Resource
     private IExamService examService;
 
-    /**
-     * 创建考试
-     *
-     * @param examAddForm
-     * @return
-     */
+    
     @ApiOperation("创建考试")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -50,12 +40,7 @@ public class ExamController {
         return examService.createExam(examAddForm);
     }
 
-    /**
-     * 开始考试
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("开始考试")
     @GetMapping("/start")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -63,13 +48,7 @@ public class ExamController {
         return examService.startExam(examId);
     }
 
-    /**
-     * 修改考试
-     *
-     * @param examUpdateForm
-     * @param id             试卷ID
-     * @return
-     */
+    
     @ApiOperation("修改考试")
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -77,12 +56,7 @@ public class ExamController {
         return examService.updateExam(examUpdateForm, id);
     }
 
-    /**
-     * 删除考试
-     *
-     * @param ids 试卷ID
-     * @return
-     */
+    
     @ApiOperation("删除考试")
     @DeleteMapping("/{ids}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -90,14 +64,7 @@ public class ExamController {
         return examService.deleteExam(ids);
     }
 
-    /**
-     * 教师分页查找考试列表
-     *
-     * @param pageNum  页码
-     * @param pageSize 每页大小
-     * @param title    试卷标题
-     * @return
-     */
+    
     @ApiOperation("教师分页查找考试列表")
     @GetMapping("/paging")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -107,12 +74,7 @@ public class ExamController {
         return examService.getPagingExam(pageNum, pageSize, title);
     }
 
-    /**
-     * 获取考试题目id列表
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("获取考试题目id列表")
     @GetMapping("/question/list/{examId}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -120,13 +82,7 @@ public class ExamController {
         return examService.getQuestionList(examId);
     }
 
-    /**
-     * 获取单题信息
-     *
-     * @param examId     试卷ID
-     * @param questionId 试题ID
-     * @return
-     */
+    
     @ApiOperation("获取单题信息")
     @GetMapping("/question/single")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -135,12 +91,7 @@ public class ExamController {
         return examService.getQuestionSingle(examId, questionId);
     }
 
-    /**
-     * 题目汇总
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("题目汇总")
     @GetMapping("/collect/{id}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -149,12 +100,7 @@ public class ExamController {
     }
 
 
-    /**
-     * 获取考试详情信息
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("获取考试详情信息")
     @GetMapping("/detail")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -162,15 +108,7 @@ public class ExamController {
         return examService.getDetail(examId);
     }
 
-    /**
-     * 根据班级获得考试
-     *
-     * @param pageNum  页码
-     * @param pageSize 每页大小
-     * @param title    试卷标题
-     * @param isASC    是否升序排列，true为升序，false为降序，默认为false
-     * @return
-     */
+    
     @ApiOperation("根据班级获得考试")
     @GetMapping("/grade")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -181,12 +119,7 @@ public class ExamController {
         return examService.getGradeExamList(pageNum, pageSize, title, isASC);
     }
 
-    /**
-     * 考试作弊次数添加
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("考试作弊次数添加")
     @PutMapping("/cheat/{examId}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -194,12 +127,7 @@ public class ExamController {
         return examService.addCheat(examId);
     }
 
-    /**
-     * 填充答案
-     *
-     * @param examQuAnswerForm
-     * @return
-     */
+    
     @ApiOperation("填充答案")
     @PostMapping("/full-answer")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -207,12 +135,7 @@ public class ExamController {
         return examService.addAnswer(examQuAnswerForm);
     }
 
-    /**
-     * 交卷操作
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("交卷操作")
     @GetMapping(value = "/hand-exam/{examId}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")
@@ -220,12 +143,7 @@ public class ExamController {
         return examService.handExam(examId);
     }
 
-    /**
-     * 查看详情
-     *
-     * @param examId 试卷ID
-     * @return
-     */
+    
     @ApiOperation("查看考试详情")
     @GetMapping(value = "/details/{examId}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin','role_student')")

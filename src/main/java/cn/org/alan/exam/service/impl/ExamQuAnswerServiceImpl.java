@@ -13,14 +13,7 @@ import javax.annotation.Resource;
 import java.text.DecimalFormat;
 import java.util.List;
 
-/**
- * <p>
- * 服务实现类
- * </p>
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Service
 public class ExamQuAnswerServiceImpl extends ServiceImpl<ExamQuAnswerMapper, ExamQuAnswer> implements IExamQuAnswerService {
 
@@ -30,7 +23,7 @@ public class ExamQuAnswerServiceImpl extends ServiceImpl<ExamQuAnswerMapper, Exa
     @Override
     public Result<QuestionAnalyseVO> questionAnalyse(Integer examId, Integer questionId) {
         QuestionAnalyseVO questionAnalyseVO = examQuAnswerMapper.questionAnalyse(examId, questionId);
-        //正确率保留两位小数
+        
         DecimalFormat format = new DecimalFormat("#.00");
         String strAccuracy = format.format(questionAnalyseVO.getRightCount() / questionAnalyseVO.getTotalCount());
         questionAnalyseVO.setAccuracy(Double.parseDouble(strAccuracy));

@@ -12,11 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @Author Alan
- * @Version
- * @Date 2024/4/1 3:18 PM
- */
+
 @Component
 @Mapper(componentModel="spring")
 public interface ExamConverter {

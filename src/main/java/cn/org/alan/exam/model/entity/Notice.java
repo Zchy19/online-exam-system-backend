@@ -7,12 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 公告实体类
- *
-Apiauthor WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("公告实体类")
 @TableName("t_notice")
@@ -41,9 +36,7 @@ public class Notice implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    /**
-     * 教师：所有班级用户 管理员：所有用户
-     */
+    
     @ApiModelProperty("是否公开")
     private Integer isPublic;
 

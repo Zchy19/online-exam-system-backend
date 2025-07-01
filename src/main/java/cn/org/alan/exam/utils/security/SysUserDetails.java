@@ -11,20 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Spring Security 用户对象
- *
- * @author haoxr
- * @since 3.0.0
- */
+
 @Data
 @NoArgsConstructor
 public class SysUserDetails implements UserDetails {
-    // 权限列表
+    
     private List<SimpleGrantedAuthority> permissions;
-    // 用户信息
+    
     private User user;
-    // 用户名称
+    
     private String username;
 
     public SysUserDetails(User user) {

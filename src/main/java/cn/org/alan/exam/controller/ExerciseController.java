@@ -22,13 +22,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
 
-/**
- * 刷题管理
- *
- * @Author Alan
- * @Version
- * @Date 2024/3/25 11:21 AM
- */
+
 @Api(tags = "刷题管理相关接口")
 @RestController
 @RequestMapping("/api/exercises")
@@ -40,13 +34,7 @@ public class ExerciseController {
     @Resource
     private IRepoService iRepoService;
 
-    /**
-     * 获取试题Id列表
-     *
-     * @param repoId 题库Id
-     * @param quType 试题类型
-     * @return 响应结果
-     */
+    
     @ApiOperation("获取试题Id列表")
     @GetMapping("/{repoId}")
     @PreAuthorize("hasAnyAuthority('role_student')")
@@ -59,12 +47,7 @@ public class ExerciseController {
     }
 
 
-    /**
-     * 填充答案，并返回试题信息
-     *
-     * @param exerciseFillAnswerFrom 请求参数
-     * @return 响应结果
-     */
+    
     @ApiOperation("填充答案，并返回试题信息")
     @PostMapping("/fillAnswer")
     @PreAuthorize("hasAnyAuthority('role_student')")
@@ -72,15 +55,7 @@ public class ExerciseController {
         return iExerciseRecordService.fillAnswer(exerciseFillAnswerFrom);
     }
 
-    /**
-     * 分页获取可刷题库列表
-     *
-     * @param pageNum    页码
-     * @param pageSize   每页大小
-     * @param title      题库名
-     * @param categoryId 分类ID
-     * @return 响应结果
-     */
+    
     @ApiOperation("分页获取可刷题库列表")
     @GetMapping("/getRepo")
     @PreAuthorize("hasAnyAuthority('role_student')")
@@ -92,12 +67,7 @@ public class ExerciseController {
         return iRepoService.getRepo(pageNum, pageSize, title, categoryId);
     }
 
-    /**
-     * 获取单题详情，没有答案
-     *
-     * @param id 试题id
-     * @return
-     */
+    
     @ApiOperation("获取单题详情，没有答案")
     @GetMapping("/question/{id}")
     @PreAuthorize("hasAnyAuthority('role_student')")
@@ -105,12 +75,7 @@ public class ExerciseController {
         return iExerciseRecordService.getSingle(id);
     }
 
-    /**
-     * 获取用户回答详情
-     *
-     * @param
-     * @return
-     */
+    
     @ApiOperation("获取用户回答详情")
     @GetMapping("/answerInfo/{repoId}/{quId}")
     @PreAuthorize("hasAnyAuthority('role_student')")

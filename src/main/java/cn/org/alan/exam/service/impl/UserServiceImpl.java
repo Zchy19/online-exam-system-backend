@@ -37,12 +37,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-/**
- * 用户服务实现类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
@@ -63,31 +58,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private IFileService fileService;
 
 
-    /**
-     * 创建用户，教师只能创建学生，管理员可以创建教师和学生
-     *
-     * @param userForm
-     * @return
-     */
+    
     @Override
     public Result<String> createUser(UserForm userForm) {
-        // 设置默认密码
+        
         userForm.setPassword(new BCryptPasswordEncoder().encode("123456"));
-        // 获取角色
+        
         Integer roleCode = SecurityUtil.getRoleCode();
-        // 教师只能创建学生
+        
         if (roleCode == 2) {
             userForm.setRoleId(1);
         }
         if(userForm.getRoleId()==2&&userForm.getGradeId()!=null){
             throw new ServiceRuntimeException("教师无法设置单一班级");
         }
-        // 避免管理员创建用户不传递角色
+        
         if (userForm.getRoleId() == null || userForm.getRoleId() == 0) {
             throw new ServiceRuntimeException("未选择用户角色");
         }
         User user = userConverter.fromToEntity(userForm);
-        // 调用Mapper插入用户
+        
         userMapper.insert(user);
         return Result.success("用户创建成功");
 
@@ -103,14 +93,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .matches(userForm.getOriginPassword(), userMapper.selectById(userId).getPassword())) {
             throw new ServiceRuntimeException("旧密码错误");
         }
-        // 设置新加密后到密码配置好自己到userID
+        
         userForm.setPassword(new BCryptPasswordEncoder().encode(userForm.getNewPassword()));
         userForm.setId(userId);
-        // 转还为User实体
+        
         User user = userConverter.fromToEntity(userForm);
-        // 调用mapper更新用户密码
+        
         int updated = userMapper.updateById(user);
-        // 密码修改成功清除redis的token，让用户重新登录
+        
         if (updated > 0) {
             stringRedisTemplate.delete("token:" + request.getSession().getId());
             return Result.success("修改成功，请重新登录");
@@ -124,7 +114,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public Result<String> deleteBatchByIds(String ids) {
         List<Integer> userIds = Arrays.stream(ids.split(",")).map(Integer::parseInt).collect(java.util.stream.Collectors.toList());
         List<Integer> adminList = userMapper.getAdminList();
-        // 判断删除用户列表集合是否包含管理员列表中的id
+        
         boolean containsAdminId = userIds.stream().anyMatch(adminList::contains);
         if(containsAdminId){
             throw new ServiceRuntimeException("无法删除管理员用户");
@@ -143,23 +133,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     @Transactional
     public Result<String> importUsers(MultipartFile file) {
-        // 文件类型判断
+        
         if (!ExcelUtils.isExcel(Objects.requireNonNull(file.getOriginalFilename()))) {
             throw new ServiceRuntimeException("文件类型必须是xls或xlsx");
         }
-        // 读取文件
+        
         List<UserForm> list = ExcelUtils.readMultipartFile(file, UserForm.class);
-        // 参数补充
+        
         list.forEach(userForm -> {
-            // 设置默认密码
+            
             userForm.setPassword(new BCryptPasswordEncoder().encode("123456"));
             userForm.setCreateTime(DateTimeUtil.getDateTime());
             if (userForm.getRoleId() == null) {
-                // 没有设置角色默认为学生
+                
                 userForm.setRoleId(1);
             }
         });
-        // 判断条数是否过多
+        
         if (list.size() > 300) {
             throw new ServiceRuntimeException("表中最多存放300条数据");
         }
@@ -167,30 +157,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return Result.success("用户导入成功");
     }
 
-    /**
-     * 获取用户个人信息
-     *
-     * @return
-     */
+    
     @Override
     public Result<UserVO> info() {
-        // 获取用户信息
+        
         Integer userId = SecurityUtil.getUserId();
         UserVO userVo = userMapper.info(userId);
-        // 将密码去除
+        
         userVo.setPassword(null);
         return Result.success("获取用户信息成功", userVo);
     }
 
-    /**
-     * 用户加入班级，只有学生才能加入班级
-     *
-     * @param code
-     * @return
-     */
+    
     @Override
     public Result<String> joinGrade(String code) {
-        // 获取班级信息
+        
         Integer userId = SecurityUtil.getUserId();
         LambdaQueryWrapper<Grade> wrapper = new LambdaQueryWrapper<Grade>().eq(Grade::getCode, code);
         Grade grade = gradeMapper.selectOne(wrapper);
@@ -213,14 +194,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Integer userId = SecurityUtil.getUserId();
         Integer roleCode = SecurityUtil.getRoleCode();
         if (roleCode == 2) {
-            // 如果是教师，要先查询教师加入了那些班级，根据教师到所有班级，查询所有班级下的用户
+            
             List<Integer> gradeIdList = userGradeMapper.getGradeIdListByUserId(userId);
             if(gradeIdList.isEmpty()){
                 throw new ServiceRuntimeException("教师还没加入班级暂无数据");
             }
             page = userMapper.pagingUser(page, gradeId, realName, userId, 1, gradeIdList);
         } else {
-            // 管理员直接查询所有用户
+            
             page = userMapper.pagingUser(page, gradeId, realName, userId, null, null);
         }
         return Result.success("分页获取用户信息成功", page);
@@ -229,13 +210,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional
     @Override
     public Result<String> uploadAvatar(MultipartFile file) {
-        // 1.上传图片
+        
         Integer userId = SecurityUtil.getUserId();
         Result<String> result = fileService.uploadImage(file);
         if (result.getCode() == 0) {
             throw new ServiceRuntimeException("图片上传失败,上传图片代码code为0");
         }
-        // 2.设置数据库头像地址
+        
         String url = result.getData();
         User user = new User();
         user.setId(userId);

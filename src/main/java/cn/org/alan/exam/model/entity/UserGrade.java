@@ -9,13 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 用户班级关联实体类
- *
- * @Author Alan
- * @Version
- * @Date 2025/3/14 6:57 PM
- */
+
 @TableName("t_user_grade")
 @Data
 public class UserGrade {

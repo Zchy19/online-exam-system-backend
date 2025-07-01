@@ -16,12 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * 公告管理
- *
- * @author Alan
- * @since 2024-03-21
- */
+
 @Api(tags = "公告管理相关接口")
 @RestController
 @RequestMapping("/api/notices")
@@ -30,12 +25,7 @@ public class NoticeController {
     @Resource
     private INoticeService noticeService;
 
-    /**
-     * 添加公告
-     *
-     * @param noticeForm
-     * @return
-     */
+    
     @ApiOperation("添加公告")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -43,12 +33,7 @@ public class NoticeController {
         return noticeService.addNotice(noticeForm);
     }
 
-    /**
-     * 删除公告
-     *
-     * @param ids
-     * @return
-     */
+    
     @ApiOperation("删除公告")
     @DeleteMapping("/{ids}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -56,13 +41,7 @@ public class NoticeController {
         return noticeService.deleteNotice(ids);
     }
 
-    /**
-     * 修改公告
-     *
-     * @param noticeId 公告ID
-     * @param noticeForm
-     * @return
-     */
+    
     @ApiOperation("修改公告")
     @PutMapping("/{noticeId}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -70,14 +49,7 @@ public class NoticeController {
         return noticeService.updateNotice(noticeId, noticeForm);
     }
 
-    /**
-     * 教师分页查找
-     *
-     * @param pageNum 页码
-     * @param pageSize 每页大小
-     * @param title
-     * @return
-     */
+    
     @ApiOperation("教师分页查找")
     @GetMapping("/paging")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -87,13 +59,7 @@ public class NoticeController {
         return noticeService.getNotice(pageNum, pageSize, title);
     }
 
-    /**
-     * 获取最新消息
-     *
-     * @param pageNum 页码
-     * @param pageSize 每页大小
-     * @return
-     */
+    
     @ApiOperation("获取最新消息")
     @GetMapping("/new")
     @PreAuthorize("hasAnyAuthority('role_student')")

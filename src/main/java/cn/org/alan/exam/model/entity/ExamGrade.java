@@ -10,12 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 用户班级关联实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("用户班级关联实体类")
 @TableName("t_exam_grade")

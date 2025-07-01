@@ -12,13 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
-/**
- * 用户每日登录时长实体类
- *
- * @Author Alan
- * @Version
- * @Date 2024/5/28 10:44 PM
- */
+
 @Data
 @ApiModel("用户每日登录时长实体类")
 @TableName("t_user_daily_login_duration")

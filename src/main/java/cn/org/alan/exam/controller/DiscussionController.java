@@ -15,14 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/**
- * 说明：
- * 讨论接口
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/4/2 6:12 PM
- */
+
 @RestController
 @RequestMapping("/api/discussion")
 @Api(tags = "讨论相关接口")
@@ -31,12 +24,7 @@ public class DiscussionController {
     @Resource
     private IDiscussionService discussionService;
 
-    /**
-     * 创建讨论
-     *
-     * @param discussionForm 入参
-     * @return 统一响应
-     */
+    
     @PostMapping("/add")
     @ApiOperation("创建讨论")
     @PreAuthorize("hasAnyAuthority('role_teacher')")
@@ -46,12 +34,7 @@ public class DiscussionController {
     }
 
 
-    /**
-     * 删除讨论
-     *
-     * @param id id
-     * @return 统一响应
-     */
+    
     @DeleteMapping("/delete/{id}")
     @ApiOperation("删除讨论讨论")
     @PreAuthorize("hasAnyAuthority('role_teacher')")
@@ -60,15 +43,7 @@ public class DiscussionController {
         return Result.success("删除成功", delId);
     }
 
-    /**
-     * 教师分页查询自己的发布的讨论
-     *
-     * @param title       标题
-     * @param gradeId     班级id
-     * @param currentPage 当前页
-     * @param size        每页记录数
-     * @return 统一响应
-     */
+    
     @GetMapping("/query/page/owner")
     @ApiOperation("教师分页查询自己的发布的讨论")
     @PreAuthorize("hasAnyAuthority('role_teacher')")
@@ -82,12 +57,7 @@ public class DiscussionController {
         return Result.success("查询成功", ownerDiscussions);
     }
 
-    /**
-     * 获取讨论详情
-     *
-     * @param id 讨论id
-     * @return 统一响应
-     */
+    
     @GetMapping("/query/detail/{id}")
     @ApiOperation("获取讨论详情")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_student')")
@@ -96,14 +66,7 @@ public class DiscussionController {
         return Result.success("查询成功", discussionDetail);
     }
 
-    /**
-     * 学生根据班级id分页获取讨论
-     *
-     * @param title       标题
-     * @param currentPage 当前页
-     * @param size        每页记录数
-     * @return 分页查询结果
-     */
+    
     @GetMapping("/query/page/student")
     @ApiOperation("学生根据班级id分页获取讨论")
     @PreAuthorize("hasAnyAuthority('role_student')")

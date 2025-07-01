@@ -7,11 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/6/6 18:13
- */
+
 @Data
 public class AnswerInfoVO {
     private Integer id;

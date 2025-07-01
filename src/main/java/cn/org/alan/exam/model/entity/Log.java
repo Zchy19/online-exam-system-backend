@@ -9,13 +9,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/**
- * 说明：
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/4/4 2:50 PM
- */
+
 @Data
 @ApiModel("日志")
 @TableName("t_log")

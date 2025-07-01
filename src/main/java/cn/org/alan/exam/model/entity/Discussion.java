@@ -9,11 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/3 9:26
- */
+
 @Data
 @ApiModel("讨论实体类")
 @TableName("t_discussion")

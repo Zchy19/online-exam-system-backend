@@ -16,13 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-/**
- * coze 平台实现 AIChat
- *
- * @author 赵浩森
- * @since 2025/4/12 21:23
- * @version 1.0
- */
+
 @Service
 @ConditionalOnProperty(name = "online-exam.chat-platform.type", havingValue = "coze")
 public class CozeUtil implements AIChat {
@@ -40,7 +34,7 @@ public class CozeUtil implements AIChat {
     public String getChatResponse(String msg) throws Exception {
         TokenAuth authCli = new TokenAuth(token);
 
-        // Init the Coze client through the access_token.
+        
         CozeAPI coze =
                 new CozeAPI.Builder()
                         .baseURL(baseUrl)
@@ -57,7 +51,7 @@ public class CozeUtil implements AIChat {
 
         ChatPoll chat = coze.chat().createAndPoll(req);
 
-        // 获取type为answer对应的content
+        
         final Optional<String> answer = chat.getMessages().stream()
                 .filter(message -> message.getType().getValue().equals("answer"))
                 .map(Message::getContent)

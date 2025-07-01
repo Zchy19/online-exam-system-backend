@@ -8,41 +8,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
-/**
- * Security工具类
- *
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/3/30 0:10
- */
+
 @Slf4j
 public class SecurityUtil {
 
-    /**
-     * 获取当前用户id
-     *
-     * @return 用户id
-     */
+    
     public static Integer getUserId() {
         SysUserDetails user = (SysUserDetails) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return user.getUser().getId();
     }
 
-    /**
-     * 获取当前用户角色
-     *
-     * @return 角色
-     */
+    
     public static String getRole() {
         List<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(java.util.stream.Collectors.toList());
         return list.get(0).toString();
     }
 
-    /**
-     * 获取当前用户角色代码 1：学生、2：教师、3管理员
-     *
-     * @return 角色
-     */
+    
     public static Integer getRoleCode() {
         List<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(java.util.stream.Collectors.toList());
         String roleName = list.get(0).toString();
@@ -59,11 +41,7 @@ public class SecurityUtil {
         return roleCode;
     }
 
-    /**
-     * 获取当前用户所在班级Id
-     *
-     * @return
-     */
+    
     public static Integer getGradeId() {
         SysUserDetails user = (SysUserDetails) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return user.getUser().getGradeId();

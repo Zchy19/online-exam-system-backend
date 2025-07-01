@@ -12,13 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 说明：
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/4/4 11:37 AM
- */
+
 @RestController
 @Api(tags = "日志记录接口")
 @RequestMapping("/api/log")

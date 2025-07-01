@@ -10,13 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 角色实体类
- *
- * @ Author JinXi
- * @ Version 1.0
- * @ Date 2024/4/25 14:10
- */
+
 @Data
 @ApiModel("角色实体类")
 @TableName("t_role")

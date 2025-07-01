@@ -16,11 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/3 9:41
- */
+
 @Service
 public class DiscussionServiceImpl extends ServiceImpl<DiscussionMapper, Discussion> implements IDiscussionService {
 
@@ -31,11 +27,11 @@ public class DiscussionServiceImpl extends ServiceImpl<DiscussionMapper, Discuss
 
     @Override
     public Discussion createDiscussion(DiscussionForm discussionForm) {
-        // 入参转为实体
+        
         Discussion discussion = discussionConverter.formToEntity(discussionForm);
-        // 获取当前用户id
+        
         Integer userId = SecurityUtil.getUserId();
-        // 填充发布人
+        
         discussion.setUserId(userId);
         int inserted = baseMapper.insert(discussion);
         if (inserted > 0) {
@@ -48,17 +44,17 @@ public class DiscussionServiceImpl extends ServiceImpl<DiscussionMapper, Discuss
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteDiscussion(Integer id) {
-        // 先做一个非空判断
+        
         Discussion discussion = baseMapper.selectById(id);
         if (discussion == null) {
             throw new RuntimeException("该id无对应的讨论");
         }
-        // 删除讨论
+        
         int deleted = baseMapper.deleteById(id);
-        // 删除该讨论的所有回复
+        
 
         if (deleted > 0) {
-            // 删除成功返回id
+            
             return id;
         }
         throw new RuntimeException("删除讨论失败");

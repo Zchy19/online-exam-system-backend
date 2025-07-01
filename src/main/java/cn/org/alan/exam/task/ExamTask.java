@@ -22,10 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * 说明：
- *
- */
+
 @Component
 @Slf4j
 public class ExamTask {
@@ -44,46 +41,44 @@ public class ExamTask {
     @Resource
     private IAutoScoringService autoScoringService;
 
-    /**
-     * 维护任务定时检测是否有正在考试但是当前时间大于结束时间到，自动交卷
-     */
+    
     @Scheduled(initialDelay = 1000, fixedDelay = 5 * 1000)
     public void test() {
-        // 查询出正在考试的用户信息
+        
         LambdaQueryWrapper<UserExamsScore> query = new LambdaQueryWrapper<>();
         query.eq(UserExamsScore::getState, ExamState.ONGOING.getCode());
         List<UserExamsScore> userExamsScores = userExamsScoreMapper.selectList(query);
-        //  获取当前时间
+        
         LocalDateTime now = LocalDateTime.now();
-//         if(userExamsScores.size()>0){
-//             for (UserExamsScore userExamsScore : userExamsScores) {
-//                 try {
-//                     // 查找到具体考试到信息
-//                     Integer examId = userExamsScore.getExamId();
-//                     Exam exam = examMapper.selectById(examId);
-//                     // 3. 获取考试信息
-//                     if(exam == null) {
-//                         log.error("考试不存在，examId: {}", exam.getId());
-//                         continue;
-//                     }
-//
-//                     LocalDateTime endTime = exam.getEndTime();
-//                     // 4. 检查是否超时
-//                     if(now.isAfter(exam.getEndTime())) {
-//                         // 5. 调用交卷函数
-//                         handExam(userExamsScore);
-//
-//                         log.info("自动交卷成功，用户ID: {}, 考试ID: {}",
-//                                 userExamsScore.getUserId(), userExamsScore.getExamId());
-//                     }
-//                 } catch (Exception e) {
-//                     log.error("自动交卷处理异常，用户考试记录ID: {}", userExamsScore.getId(), e);
-//                 }
-//             }
-//         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         for (UserExamsScore userExamsScore : userExamsScores) {
             try {
-                // 查找到具体考试的信息
+                
                 Integer examId = userExamsScore.getExamId();
                 Exam exam = examMapper.selectById(examId);
 
@@ -92,24 +87,24 @@ public class ExamTask {
                     continue;
                 }
 
-                // 计算考试结束时间
-                LocalDateTime userStartTime = userExamsScore.getCreateTime();//获取用户实际的开始时间 (UserExamsScore 记录的创建时间
+                
+                LocalDateTime userStartTime = userExamsScore.getCreateTime();
                 if (userStartTime == null) {
-                    // 如果因为某些原因没取到 userExamsScore 或者其 createTime 为 null，需要处理
-                    // 可以尝试重新从数据库获取一次该记录确保拿到最新数据
+                    
+                    
                     UserExamsScore currentRecord = userExamsScoreMapper.selectById(userExamsScore.getId());
                     if (currentRecord == null || currentRecord.getCreateTime() == null) {
                         log.error("无法获取用户考试记录的实际开始时间，用户考试记录ID: {}", userExamsScore.getId());
-                        continue; // 跳过此记录
+                        continue; 
                     }
                     userStartTime = currentRecord.getCreateTime();
                 }
 
                 LocalDateTime userEndTime = userStartTime.plusMinutes(exam.getExamDuration());
 
-                // 检查是否超时
+                
                 if (now.isAfter(userEndTime)) {
-                    // 调用交卷函数
+                    
                     handExam(userExamsScore);
                     log.info("自动交卷成功，用户ID: {}, 考试ID: {}",
                             userExamsScore.getUserId(), userExamsScore.getExamId());
@@ -120,28 +115,25 @@ public class ExamTask {
         }
     }
 
-    /**
-     * 交卷操作
-     * @return
-     */
+    
     @Transactional
     public Result<ExamQuDetailVO> handExam(UserExamsScore ues) {
-        // 获取当前时间
+        
 
         LocalDateTime nowTime = LocalDateTime.now();
-        // 查询考试表记录
+        
         Exam examOne = examMapper.selectById(ues.getExamId());
-        // 设置考试状态
+        
         UserExamsScore userExamsScore = new UserExamsScore();
         userExamsScore.setUserScore(0);
         userExamsScore.setState(1);
 
-        // 查询用户答题记录
+        
         LambdaQueryWrapper<ExamQuAnswer> examQuAnswerLambdaQuery = new LambdaQueryWrapper<>();
         examQuAnswerLambdaQuery.eq(ExamQuAnswer::getUserId, ues.getUserId())
                 .eq(ExamQuAnswer::getExamId, ues.getExamId());
         List<ExamQuAnswer> examQuAnswer = examQuAnswerMapper.selectList(examQuAnswerLambdaQuery);
-        // 客观分
+        
         List<UserBook> userBookArrayList = new ArrayList<>();
         for (ExamQuAnswer temp : examQuAnswer) {
             if (temp.getIsRight() == 1) {
@@ -162,12 +154,12 @@ public class ExamTask {
             }
         }
         if (!userBookArrayList.isEmpty()) {
-            // 把打错的问题加入错题本
+            
             userBookMapper.addUserBookList(userBookArrayList);
         }
-        // 设置用户用时和提交试卷
+        
         userExamsScore.setLimitTime(nowTime);
-        // 开始时间
+        
         LambdaQueryWrapper<UserExamsScore> userExamsScoreLambdaQueryWrapper = new LambdaQueryWrapper<>();
         userExamsScoreLambdaQueryWrapper.eq(UserExamsScore::getUserId, ues.getUserId())
                 .eq(UserExamsScore::getExamId, ues.getExamId());
@@ -175,15 +167,15 @@ public class ExamTask {
         LocalDateTime createTime = userExamsScore1.getCreateTime();
         long secondsDifference = Duration.between(createTime, nowTime).getSeconds();
         int differenceAsInteger = (int) secondsDifference;
-        // 检查是否在Integer范围内
-        // if (secondsDifference <= Integer.MAX_VALUE && secondsDifference >= Integer.MIN_VALUE)
+        
+        
         userExamsScore.setUserTime(differenceAsInteger);
-        // 添加总分和状态
+        
         LambdaUpdateWrapper<UserExamsScore> userExamsScoreLambdaUpdate = new LambdaUpdateWrapper<>();
         userExamsScoreLambdaUpdate.eq(UserExamsScore::getUserId, ues.getUserId())
                 .eq(UserExamsScore::getExamId, ues.getExamId());
         userExamsScoreMapper.update(userExamsScore, userExamsScoreLambdaUpdate);
-        // 判断是否有简答题
+        
         if (examOne.getSaqCount() != 0) {
             LambdaUpdateWrapper<UserExamsScore> userExamsScoreLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
             userExamsScoreLambdaUpdateWrapper.set(UserExamsScore::getWhetherMark, 0)
@@ -201,7 +193,7 @@ public class ExamTask {
             certificateUser.setCode(ClassTokenGenerator.generateClassToken(18));
             certificateUserMapper.insert(certificateUser);
         }
-        // 查询有简答题是否回答
+        
         Exam byId = examMapper.selectById(ues.getExamId());
         if (byId.getSaqCount() > 0) {
             LambdaQueryWrapper<ExamQuAnswer> examQuAnswerLambdaQueryWrapper = new LambdaQueryWrapper<>();

@@ -18,12 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * 试题管理
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Api(tags = "试题管理相关接口")
 @RestController
 @RequestMapping("/api/questions")
@@ -35,12 +30,7 @@ public class QuestionController {
     @Resource
     private IFileService fileService;
 
-    /**
-     * 单题添加
-     *
-     * @param questionFrom 传参
-     * @return 响应
-     */
+    
     @ApiOperation("单题添加")
     @PostMapping("/single")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -48,12 +38,7 @@ public class QuestionController {
         return iQuestionService.addSingleQuestion(questionFrom);
     }
 
-    /**
-     * 批量删除试题
-     *
-     * @param ids 试题id
-     * @return 相应
-     */
+    
     @ApiOperation("批量删除试题")
     @DeleteMapping("/batch/{ids}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -61,16 +46,7 @@ public class QuestionController {
         return iQuestionService.deleteBatchByIds(ids);
     }
 
-    /**
-     * 分页查询试题
-     *
-     * @param pageNum  页码
-     * @param pageSize 每页大小
-     * @param content  试题名
-     * @param repoId   题库id
-     * @param type     试题类型
-     * @return 响应
-     */
+    
     @ApiOperation("分页查询试题")
     @GetMapping("/paging")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -82,12 +58,7 @@ public class QuestionController {
         return iQuestionService.pagingQuestion(pageNum, pageSize, content, type, repoId);
     }
 
-    /**
-     * 根据试题id获取单题详情
-     *
-     * @param id 试题id
-     * @return 响应结果
-     */
+    
     @ApiOperation("根据试题id获取单题详情")
     @GetMapping("/single/{id}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -95,13 +66,7 @@ public class QuestionController {
         return iQuestionService.querySingle(id);
     }
 
-    /**
-     * 修改试题
-     *
-     * @param id           试题Id
-     * @param questionFrom 入参
-     * @return 响应结果
-     */
+    
     @ApiOperation("修改试题")
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -110,13 +75,7 @@ public class QuestionController {
         return iQuestionService.updateQuestion(questionFrom);
     }
 
-    /**
-     * 批量导入试题
-     *
-     * @param id   题库Id
-     * @param file Excel文件
-     * @return 响应结果
-     */
+    
     @ApiOperation("批量导入试题")
     @PostMapping("/import/{id}")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")
@@ -124,12 +83,7 @@ public class QuestionController {
         return iQuestionService.importQuestion(id, file);
     }
 
-    /**
-     * 上传试题图片
-     *
-     * @param file 文件
-     * @return 返回上传后的地址
-     */
+    
     @ApiOperation("上传图片")
     @PostMapping("/uploadImage")
     @PreAuthorize("hasAnyAuthority('role_teacher','role_admin')")

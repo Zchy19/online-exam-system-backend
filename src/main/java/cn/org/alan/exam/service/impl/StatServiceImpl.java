@@ -18,12 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * 统计管理服务实现类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Service
 public class StatServiceImpl extends ServiceImpl<ExamGradeMapper, ExamGrade> implements IStatService {
 
@@ -42,7 +37,7 @@ public class StatServiceImpl extends ServiceImpl<ExamGradeMapper, ExamGrade> imp
 
     @Override
     public Result<List<GradeStudentVO>> getStudentGradeCount() {
-        //获取班级
+        
         List<GradeStudentVO> gradeStudentVOs;
         Integer userId = SecurityUtil.getUserId();
         Integer roleCode = SecurityUtil.getRoleCode();
@@ -60,7 +55,7 @@ public class StatServiceImpl extends ServiceImpl<ExamGradeMapper, ExamGrade> imp
 
     @Override
     public Result<List<GradeExamVO>> getExamGradeCount() {
-        //获取班级
+        
         List<GradeExamVO> gradeExamVOs;
         Integer userId = SecurityUtil.getUserId();
         Integer roleCode = SecurityUtil.getRoleCode();

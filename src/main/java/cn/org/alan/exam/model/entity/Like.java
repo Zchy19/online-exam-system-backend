@@ -9,11 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/16 22:10
- */
+
 @Data
 @TableName("t_like")
 @ApiModel("点赞实体类")

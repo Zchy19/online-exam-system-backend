@@ -5,13 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * 讨论入参
- *
- * @author WeiJin
- * @version 1.0
- * @since 2025/4/3 9:32
- */
+
 @Data
 public class DiscussionForm {
     @NotNull(message = "接收班级id不能为空")

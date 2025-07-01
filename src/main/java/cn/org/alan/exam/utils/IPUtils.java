@@ -24,11 +24,7 @@ public class IPUtils {
         }
     });
 
-    /**
-     * 获取ip归属地
-     * @param request
-     * @return
-     */
+    
 
     public static String getIPRegion(HttpServletRequest request) {
         String ip = getIPAddress(request);
@@ -51,11 +47,7 @@ public class IPUtils {
         }
     }
 
-    /**
-     * 获取ip地址
-     * @param request
-     * @return
-     */
+    
     private static String getIPAddress(HttpServletRequest request) {
         String ipAddress = request.getHeader("X-Forwarded-For");
         if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {

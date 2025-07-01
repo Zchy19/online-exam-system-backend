@@ -9,22 +9,10 @@ import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
-/**
- * <p>
- *  服务类
- * </p>
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 public interface IExamQuAnswerService extends IService<ExamQuAnswer> {
 
-    /**
-     * 获取某场考试某题作答情况
-     * @param examId 考试id
-     * @param questionId 试题id
-     * @return 结果
-     */
+    
     Result<QuestionAnalyseVO> questionAnalyse(Integer examId, Integer questionId);
 
 }

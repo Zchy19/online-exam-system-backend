@@ -9,20 +9,11 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
-/**
- * CORS 资源共享配置
- *
- * @author Alan
- * @since 2023/4/17
- */
+
 @Configuration
 public class CorsConfig {
 
-    /**
-     * 配置允许跨域
-     *
-     * @return
-     */
+    
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

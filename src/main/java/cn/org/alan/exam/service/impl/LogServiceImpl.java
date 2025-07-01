@@ -10,13 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * 说明：
- *
- * @Author Alan
- * @Version 1.0
- * @Date 2025/4/4 11:41 AM
- */
+
 @Service
 public class LogServiceImpl implements ILogService {
     @Autowired

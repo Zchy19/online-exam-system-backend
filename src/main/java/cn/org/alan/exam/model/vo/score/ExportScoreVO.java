@@ -3,11 +3,7 @@ package cn.org.alan.exam.model.vo.score;
 import cn.org.alan.exam.utils.excel.ExcelExport;
 import lombok.Data;
 
-/**
- * @Author WeiJin
- * @Version 1.0
- * @Date 2024/4/22 10:12
- */
+
 @Data
 public class ExportScoreVO {
 

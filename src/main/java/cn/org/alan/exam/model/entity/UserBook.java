@@ -8,12 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 错题本实体类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Data
 @ApiModel("错题本实体类")
 @TableName("t_user_book")
@@ -35,9 +30,7 @@ public class UserBook implements Serializable {
     @ApiModelProperty("题目ID")
     private Integer quId;
 
-    /**
-     * YYYY-MM-DD hh:mm:ss
-     */
+    
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

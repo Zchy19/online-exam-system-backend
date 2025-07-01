@@ -25,12 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- * 成绩管理服务接口实现类
- *
- * @author WeiJin
- * @since 2024-03-21
- */
+
 @Service
 public class UserExamsScoreServiceImpl extends ServiceImpl<UserExamsScoreMapper, UserExamsScore> implements IUserExamsScoreService {
     @Resource
@@ -49,14 +44,14 @@ public class UserExamsScoreServiceImpl extends ServiceImpl<UserExamsScoreMapper,
 
     @Override
     public void exportScores(HttpServletResponse response, Integer examId, Integer gradeId) {
-        // 获取成绩信息
+        
         List<ExportScoreVO> scores = userExamsScoreMapper.selectScores(examId, gradeId);
         final int[] sort = {0};
         scores.forEach(exportScoreVO -> exportScoreVO.setRanking(++sort[0]));
-        // 获取考试名
+        
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<Exam>().eq(Exam::getId, examId).select(Exam::getTitle);
         Exam exam = examMapper.selectOne(wrapper);
-        // 生成表格并响应
+        
         ExcelUtils.export(response, exam.getTitle(), scores, ExportScoreVO.class);
 
     }
@@ -65,7 +60,7 @@ public class UserExamsScoreServiceImpl extends ServiceImpl<UserExamsScoreMapper,
     public Result<IPage<GradeScoreVO>> getExamScoreInfo(Integer pageNum, Integer pageSize, String examTitle, Integer gradeId) {
         IPage<GradeScoreVO> page = new Page<>(pageNum, pageSize);
         Integer userId = SecurityUtil.getUserId();
-        // 根据用户id查询老师所加入的班级
+        
         List<Integer> gradeIdList = userGradeMapper.getGradeIdListByUserId(userId);
         if (gradeIdList.isEmpty()) {
             throw new ServiceRuntimeException("教师还没加入班级暂无数据");

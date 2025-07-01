@@ -7,12 +7,7 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-/**
- * 分类VO
- *
- * @author Moxuec
- * @since 2025-04-09
- */
+
 @Data
 @ApiModel(value = "分类VO", description = "分类视图对象")
 public class CategoryVO {

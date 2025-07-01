@@ -6,12 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * 标准响应结构体
- *
- * @author haoxr
- * @since 2022/1/30
- **/
+
 @Data
 @ApiModel("标准响应结构体")
 public class Result<T> implements Serializable {
